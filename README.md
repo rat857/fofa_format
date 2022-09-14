@@ -1,7 +1,7 @@
 # fofa_format
 一键查询fofa并格式化
 
-
+如果你已经有了未格式化的url.txt只是想格式化成nuclei识别的格式，请访问https://github.com/rat857/format_target
 
 ## 背景：
 
