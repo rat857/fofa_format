@@ -1,5 +1,4 @@
 # fofa_format
-
 一键查询fofa并格式化
 
 
@@ -20,6 +19,14 @@ python3 main.py
 
 格式化好的文件会保存在end.txt,(会自动生成)
 
+默认下载10000条
+
+如需更改请编辑search.py里的def search()里的size
+
 ## 最后：
 
 把end.txt丢到你的扫描器里即可
+
+## 注意事项：
+
+只在linux里测试了，windows里没试过，可能会报错，请自己斟酌
