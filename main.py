@@ -2,7 +2,6 @@
 import ico
 import info
 # import format
-
 import os
 
 if __name__ == "__main__":
