@@ -43,7 +43,8 @@ func GetAllUrl() []string {
 	for _, countryUrl := range countryList {
 		page := rod.New().NoDefaultDevice().MustConnect().MustPage(countryUrl)
 		page.MustWindowFullscreen()
-		page.MustElementX("//*[@id=\"__layout\"]/div/div[2]/div/div[2]/div[1]/div[3]/div[12]/div/div/ul/li[1]/div/a")
+		page.MustElement("#__layout > div > div.contentContainer.resultIndex > div:nth-child(1) > div > div.mainLeftContainer > div.hsxa-ui-component.hsxa-meta-data-statistical-list.hsxa-pos-rel > div:nth-child(12) > div > div > ul > li > div > a")
+		//page.MustElementX("//*[@id=\"__layout\"]/div/div[2]/div/div[2]/div[1]/div[3]/div[12]/div/div/ul/li[1]/div/a")
 		r_list := page.MustElementsX("//*[@id=\"__layout\"]/div/div[2]/div/div[2]/div[1]/div[3]/div[12]/div/div/ul/li/div/a")
 		for _, i2 := range r_list {
 			urlList = append(urlList, i2.MustProperty("href").Str())
