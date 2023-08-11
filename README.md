@@ -1,5 +1,5 @@
 # fofa_format
-一键查询比10000更多的fofa资产并格式化
+**一键查询比10000更多的fofa资产并格式化**
 
 如果你已经有了未格式化的url.txt只是想格式化成nuclei识别的格式，请访问[format target](https://github.com/rat857/format_target)
 
