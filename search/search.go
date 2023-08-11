@@ -39,6 +39,9 @@ func GetServerBase64(email, key string) []string {
 		fmt.Println(base64.StdEncoding.EncodeToString([]byte(a)))
 		re = append(re, a)
 	}
+	if len(re) == 0 {
+		re = append(re, input)
+	}
 	color.Red("---------距离第二层结束预计还有%d秒,耐心等待---------", len(re)*10)
 	return re
 }
