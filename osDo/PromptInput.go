@@ -12,6 +12,7 @@ func PromptInput(key string) string {
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Print(key + ":")
 	input, _ := reader.ReadString('\n')
-	input = strings.ReplaceAll(input, "\n", "") //去除换行
+	input = strings.ReplaceAll(input, "\r\n", "") //windows去除换行
+	input = strings.ReplaceAll(input, "\n", "")   //linux去除换行
 	return input
 }
