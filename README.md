@@ -3,7 +3,7 @@
 
 如果你已经有了未格式化的url.txt只是想格式化成nuclei识别的格式，请访问[format target](https://github.com/rat857/format_target)
 
-3.0版本，用golang重构
+V3版本，用golang重构
 
 ## 背景
 
