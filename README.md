@@ -55,3 +55,5 @@ go build
 第一次使用会要求输入email和key,然后自动生成config.yaml,后面就不需要了，若后面需要换号或者换API，直接删掉config.yaml文件即可
 
 抓下来的资产，格式化好的文件会保存在end.txt,(会自动生成)
+v3.2版本后面，会顺便再生成http和https的文件，
+http和https的文件主要用于yakit的host fuzz,end文件只要用来丢给扫描器
