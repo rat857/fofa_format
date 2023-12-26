@@ -23,13 +23,13 @@ func main() {
 		key := osDo.PromptInput("请输入你的Key")
 		osDo.WriterInfo(email, key)
 	}
-	email, key := osDo.ReadInfo()
+	email, key, _, _ := osDo.ReadInfo()
 	//
 	color.Red("[email:%s key:%s]", email, key)
 	//qbase64 := search.GetAllUrl()
-	base64AllList := search.GetAllBase64(email, key)
+	base64AllList, input := search.GetAllBase64(email, key)
 	//fmt.Println(urls)
 	//var a = []string{"YXBwPSLnlYXmjbfpgJotVFBsdXMiICYmIHJlZ2lvbj0iR3Vhbmdkb25nIg==", "YXBwPSLnlYXmjbfpgJotVFBsdXMiICYmIHJlZ2lvbj0iQmVpamluZyI="}
-	search.FofaSearch(email, key, base64AllList)
+	search.FofaSearch(email, key, base64AllList, input)
 	//color.Red("finish!!!")
 }
