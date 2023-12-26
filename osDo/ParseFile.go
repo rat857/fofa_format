@@ -90,21 +90,21 @@ func Fenkai(urls []string) ([]string, []string) {
 			fmt.Println(url)
 		}
 
-		//fmt.Println("\nHTTPS URLs:")
+		//fmt.Println("\nHTTPS URLs:
 		for _, url := range httpsURLs {
 			fmt.Println(url)
 		}*/
 }
 
 // format生成的切片
-func Format(urls []string) []string {
+func Format(result [][]string) []string {
 	var newSlice []string
 
-	for _, goodhost := range urls {
-		if strings.HasPrefix(goodhost, "https://") {
-			newSlice = append(newSlice, goodhost)
+	for _, goodhost := range result {
+		if strings.HasPrefix(goodhost[0], "https://") {
+			newSlice = append(newSlice, goodhost[0])
 		} else {
-			newSlice = append(newSlice, "http://"+goodhost)
+			newSlice = append(newSlice, "http://"+goodhost[0])
 		}
 	}
 	newSlice = RemoveDuplicateIPs(newSlice) //给ip去重,因为一个ip上可能有几个端口，几个端口上可能都有漏洞
