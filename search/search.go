@@ -20,7 +20,7 @@ func SearchInfo() string {
 }
 
 // 获取不同的server,返回不同的server的字符串切片
-func GetServerBase64(email, key string) ([]string, []string) {
+func GetServerBase64(email, key string) ([]string, []string, string) {
 	var base64AllList = make([]string, 0) //这个切片就是最终要传给查询用的base64的切片
 	input := SearchInfo()
 	encoded := base64.StdEncoding.EncodeToString([]byte(input))
@@ -60,7 +60,7 @@ func GetServerBase64(email, key string) ([]string, []string) {
 		bbinput := base64.StdEncoding.EncodeToString([]byte(input))
 		fmt.Println(bbinput)
 		base64AllList = append(base64AllList, bbinput)
-		FofaSearch(email, key, base64AllList)
+		FofaSearch(email, key, base64AllList, input)
 	}
 	//到此
 	color.Yellow("总资产数量%d,资产数量大于10000，开始分批查询", data.Size)
@@ -85,12 +85,12 @@ func GetServerBase64(email, key string) ([]string, []string) {
 		re = append(re, input)
 	}
 	color.Red("---------有%d条需要步入第二层，有%d条不用步入第二层,距离第二层结束预计还有%d秒,耐心等待---------", len(re), len(base64AllList), len(re)*10)
-	return re, base64AllList
+	return re, base64AllList, input
 }
 
 // 返回所有查询语法base64的切片
-func GetAllBase64(email, key string) []string {
-	getServerBase64, base64AllList := GetServerBase64(email, key)
+func GetAllBase64(email, key string) ([]string, string) {
+	getServerBase64, base64AllList, input := GetServerBase64(email, key)
 	color.Yellow("正在步入第二层----Country/Region")
 
 	for _, ServBase := range getServerBase64 {
@@ -158,5 +158,5 @@ func GetAllBase64(email, key string) []string {
 	}
 	//color.Yellow("一共找到%d条语法", len(base64AllList))
 	color.Red("---------一共需要查询%d条语法,距离结束预计还有%d秒---------", len(base64AllList), len(base64AllList)*3)
-	return base64AllList
+	return base64AllList, input
 }
