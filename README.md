@@ -102,5 +102,4 @@ fofa:
 ## 注意事项
 
 - 需要 FOFA 会员 API（email + key）
-- `config.yaml` 包含 API 密钥，请勿上传到公开仓库
 - 若查询语法对应的资产总数小于 10000，会直接查询；大于 10000 时会按 Server / Country / Region 自动分批查询
