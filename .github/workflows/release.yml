@@ -1,0 +1,54 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.20"
+          cache: true
+
+      - name: Build binaries
+        run: |
+          mkdir -p dist
+          platforms=(
+            "linux amd64 fofa_format-linux-amd64"
+            "linux arm64 fofa_format-linux-arm64"
+            "windows amd64 fofa_format-windows-amd64.exe"
+            "darwin amd64 fofa_format-darwin-amd64"
+            "darwin arm64 fofa_format-darwin-arm64"
+          )
+          for platform in "${platforms[@]}"; do
+            set -- $platform
+            GOOS=$1 GOARCH=$2 go build -trimpath -ldflags="-s -w" -o "dist/$3" .
+          done
+          cd dist
+          for file in fofa_format-*; do
+            if [[ "$file" == *.exe ]]; then
+              zip "${file%.exe}.zip" "$file"
+            else
+              tar -czf "${file}.tar.gz" "$file"
+            fi
+          done
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: dist/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

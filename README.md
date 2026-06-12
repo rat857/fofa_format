@@ -50,7 +50,16 @@ go build
 
 ### 用二进制文件
 
-直接在 Packages 里下载对应你系统的文件即可
+在 [Releases](https://github.com/rat857/fofa_format/releases) 页面下载对应系统的压缩包即可。
+
+维护者发布新版本时，只需推送 `v` 开头的 Git 标签，GitHub Actions 会自动编译并上传 Release：
+
+```shell
+git tag v3.3.0
+git push origin v3.3.0
+```
+
+也可以在 GitHub 仓库的 **Actions → Release → Run workflow** 中手动触发。
 
 ## 首次运行与配置
 
