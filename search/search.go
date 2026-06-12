@@ -25,7 +25,7 @@ func GetServerBase64(email, key string) ([]string, []string, string) {
 	input := SearchInfo()
 	encoded := base64.StdEncoding.EncodeToString([]byte(input))
 	var re = make([]string, 0) //这个切片是带着server的查询语法，需要再次获得county信息的
-	url := "https://fofa.info/api/v1/search/stats?fields=asset_type,country,server&qbase64=" + encoded + "&email=" + email + "&key=" + key
+	url := statsURL() + "?fields=asset_type,country,server&qbase64=" + encoded + "&email=" + email + "&key=" + key
 	//fmt.Println(url)
 	color.Yellow("Start!!!")
 	//请求速度过快时重试5次
@@ -60,7 +60,7 @@ func GetServerBase64(email, key string) ([]string, []string, string) {
 		bbinput := base64.StdEncoding.EncodeToString([]byte(input))
 		fmt.Println(bbinput)
 		base64AllList = append(base64AllList, bbinput)
-		FofaSearch(email, key, base64AllList, input)
+		FofaSearch(email, key, base64AllList)
 	}
 	//到此
 	color.Yellow("总资产数量%d,资产数量大于10000，开始分批查询", data.Size)
@@ -96,7 +96,7 @@ func GetAllBase64(email, key string) ([]string, string) {
 	for _, ServBase := range getServerBase64 {
 		time.Sleep(10 * time.Second)
 
-		url := "https://fofa.info/api/v1/search/stats?fields=asset_type,country,server&qbase64=" + base64.StdEncoding.EncodeToString([]byte(ServBase)) + "&email=" + email + "&key=" + key
+		url := statsURL() + "?fields=asset_type,country,server&qbase64=" + base64.StdEncoding.EncodeToString([]byte(ServBase)) + "&email=" + email + "&key=" + key
 		//请求速度过快时重试5次
 		var data template.JuheInfo
 		for i := 0; i < 5; i++ {

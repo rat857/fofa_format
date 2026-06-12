@@ -55,18 +55,5 @@ type Data struct {
 	Page            int        `json:"page"`
 	Mode            string     `json:"mode"`
 	Query           string     `json:"query"`
-	Results         [][]string `json:"results"`
-}
-
-type ResultExcel struct {
-	Host           string `excel:"host"`
-	Protocol       string `excel:"protocol"`
-	CountryName    string `excel:"country_Name"`
-	Region         string `excel:"region"`
-	Domain         string `excel:"domain"`
-	OS             string `excel:"os"`
-	Server         string `excel:"server"`
-	Title          string `excel:"title"`
-	Lastupdatetime string `excel:"lastupdatetime"`
-	Cname          string `excel:"cname"`
+	Results         any    `json:"results"`
 }

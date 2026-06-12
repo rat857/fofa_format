@@ -1,13 +1,14 @@
 # fofa_format
-**一键查询比10000更多的fofa资产并格式化**
 
-如果你已经有了未格式化的url.txt只是想格式化成nuclei识别的格式，请访问[format target](https://github.com/rat857/format_target)
+**一键查询比 10000 更多的 FOFA 资产并格式化**
 
-V3版本，用golang重构
+如果你已经有了未格式化的 url.txt，只是想格式化成 nuclei 识别的格式，请访问 [format target](https://github.com/rat857/format_target)
+
+V3 版本，用 Golang 重构
 
 ## 背景
 
-因为fofa查出来的目标，不方便直接丢扫描器，该工具可以实现一键查询并格式化调出来的目标（需要会员API），并且原始的高级会员也只能查10000个，但有些资产却很多，比如：
+因为 FOFA 查出来的目标不方便直接丢扫描器，该工具可以实现一键查询并格式化调出来的目标（需要会员 API）。原始的高级会员单次也只能查 10000 个，但有些资产却很多，比如：
 
 ![image-20230803141955872](README.assets/image-20230803141955872.png)
 
@@ -15,7 +16,7 @@ V3版本，用golang重构
 
 ## 新特性
 
-根据不同的Server和Country/Region组合成更多的语法来爬取更多的内容，就像这样：
+根据不同的 Server 和 Country/Region 组合成更多的语法来爬取更多的内容，就像这样：
 
 ![image-20230811193241508](README.assets/image-20230811193241508.png)
 
@@ -27,38 +28,70 @@ V3版本，用golang重构
 
 ![image-20230811193517851](README.assets/image-20230811193517851.png)
 
-程序会自动去重的
+程序会自动去重：
 
 ![image-20230803141533361](./README.assets/image-20230803141533361.png)
 
-## 用法：
+## 用法
 
 ### 用源码自行编译
 
 ```shell
 git clone https://github.com/rat857/fofa_format.git
+cd fofa_format
 go mod tidy
 go build
 ```
 
 ```shell
-./fofa_format		#Linux
-双击							#Windows
+./fofa_format    # Linux
+双击             # Windows
 ```
 
 ### 用二进制文件
 
-直接在Packages里下载对应你系统的文件即可
+直接在 Packages 里下载对应你系统的文件即可
+
+## 首次运行与配置
+
+第一次使用会依次提示输入：
+
+1. **FOFA 站点 URL**（直接回车默认 `https://fofa.info`）
+2. **邮箱**
+3. **Key**
+
+程序会自动生成 `config.yaml`，后续运行直接读取配置，无需重复输入。
+
+示例：
+
+```yaml
+fofa:
+  email: your@email.com
+  key: your_fofa_key
+  url: https://fofa.icu
+```
+
+### 支持的 FOFA 站点
+
+默认使用 `https://fofa.info`，也兼容其他中转站，例如：
+
+- `https://fofa.icu`
+- `fofa.icu`（会自动补全为 `https://fofa.icu`）
+
+如需更换站点、账号或 API Key，直接修改 `config.yaml`，或删除该文件后重新运行程序。
+
+## 输出文件
+
+查询完成后，格式化结果会保存到当前目录：
+
+| 文件 | 说明 |
+|------|------|
+| `end.txt` | 全部格式化后的 URL，可直接丢给扫描器 |
+| `http.txt` | 仅 HTTP 链接，主要用于 yakit 的 host fuzz |
+| `https.txt` | 仅 HTTPS 链接 |
 
 ## 注意事项
 
-第一次使用会要求输入email和key,然后自动生成config.yaml,后面就不需要了，若后面需要换号或者换API，直接删掉config.yaml文件即可
-
-抓下来的资产，格式化好的文件会保存在end.txt,(会自动生成)
-
-v3.2版本后面，会顺便再生成http和https的文件，
-
-http和https的文件主要用于yakit的host fuzz,end文件主要用来丢给扫描器
-
-新增生成Excel
-![231227_01h05m37s_screenshot.png](./README.assets/231227_01h05m37s_screenshot.png)
+- 需要 FOFA 会员 API（email + key）
+- `config.yaml` 包含 API 密钥，请勿上传到公开仓库
+- 若查询语法对应的资产总数小于 10000，会直接查询；大于 10000 时会按 Server / Country / Region 自动分批查询
